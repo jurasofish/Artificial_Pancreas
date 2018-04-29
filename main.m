@@ -9,6 +9,10 @@ PEGP = c(4);
 P1 = c(5);
 P2 = c(6);
 P3 = c(7);
+G_0_const = c(8);
+S_i = c(9);
+K_sen = c(10);
+Tau_m = c(11);
 
 % Time span to solve over. In Minutes.
 t_start = 0;
@@ -19,8 +23,13 @@ tspan = [t_start, t_end];
 Q_i1_0 = 0;
 Q_i_0 = 5;
 I_p_0 = K_i/Tau_i * Q_i_0;
+G_0 = 6;
+x_0 = 0;
+G_s_0 = 6;
+Q_m_0 = 13;
+U_m_0 = 0.1;
 
-sys_0 = [Q_i1_0 Q_i_0 I_p_0];
+sys_0 = [Q_i1_0 Q_i_0 I_p_0 G_0 x_0 G_s_0 Q_m_0 U_m_0];
 
 % options for the ode solver
 options = odeset('RelTol',1e-7,'Stats','on','OutputFcn',@odeplot);
@@ -49,18 +58,33 @@ function const = get_constants()
     
     % p1 (1/min) describes glucose effectiveness (the ability of glucose to
     % promote its own disposal)
-    P1 = 0.5
-    
+    P1 = 0.5;
     
     % p2 (1/min) is a time constant characterizing the delay of the plasma
     % insulin effect on plasma glucose (deactivation rate of insulin effects) 
-    P2 = 0.5;
+    P2 = 5;
     
     % p3 (1/min2 per munits/L) describes the activation rate of insulin
     % effects.
     P3 = 0.1;
     
-    const = [Tau_i K_i V PEGP P1 P2 P3];
+    % G0 (mmol/L) is an equi- librium point for glucose concentration.
+    G_0_const = 6; % name to differentiate from function initial value.
+    
+    % Si ~ G0 Ki P3 /P2 (mmol/L per units) is a positive insulin sen-
+    % sitivity factor [the amount of glucose level drop (mmol/L) caused by
+    % one unit of insulin]
+    S_i = G_0_const * K_i * P3 / P2;
+    
+    % ksen (1/min) is the transfer-rate constant
+    K_sen = 0.2;
+    
+    % xm (min) is a time constant characterizing the appearance of glucose
+    % in the blood circulation from the gut.
+    Tau_m = 30;
+    
+    
+    const = [Tau_i K_i V PEGP P1 P2 P3 G_0_const S_i K_sen Tau_m];
 end
 
 function final_plot(t, sys)
@@ -78,5 +102,25 @@ plot(t,sys(:,3),'-o')
 title('Insulin in Plasma')
 xlabel('Time (minutes)')
 ylabel('Insulin in Plasma (munits/L)')
+
+figure % new figure Window
+plot(t,sys(:,4),'-o')
+title('Glucose in Plasma')
+xlabel('Time (minutes)')
+ylabel('Glucose in Plasma (mmol/L)')
+
+figure % new figure Window
+plot(t,sys(:,6),'-o')
+title('Interstial Glucose')
+xlabel('Time (minutes)')
+ylabel('Interstial Glucose (mmol/L)')
+
+figure % new figure Window
+plot(t,sys(:,8),'-o')
+title('Glucose Gut Absorption Rate')
+xlabel('Time (minutes)')
+ylabel('Glucose Gut Absorption Rate (?mol/kg/min)')
+
+
 
 end
