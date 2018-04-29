@@ -74,7 +74,7 @@ function G_emp = get_G_emp(t)
     D_m = 10;
 
     % KBio is the carbohydrates bioavailability in the meal
-    K_bio = 1.5;
+    K_bio = 50;
 
     % Tasc , Tdes , and T (min) are the durations of ascend- ing and
     % descending rates and the total duration of gastric emptying,
