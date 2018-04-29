@@ -32,7 +32,7 @@ function sys_deriv = sys_ode(t, sys, c)
     x = sys(5);
     G_s = sys(6);
     Q_m = sys(7);
-    U_m = sys(8)
+    U_m = sys(8);
 
     % Evaluate derivatives.
     d_Q_i1 = -1*Q_i1/Tau_i + U_i;
@@ -59,8 +59,8 @@ end
 
 function U_i = get_U_i(t)
 % Ui(t) (unit/min) is the external insulin infusion rate
-    if(t >= 60 && t < 61)
-        U_i = 5;
+    if(t >= 60 && t < 70)
+        U_i = 10;
     else
         U_i = 0;
     end
@@ -71,16 +71,16 @@ function G_emp = get_G_emp(t)
     % gastric emptying.
     % does this need to be adjusted for a meal to start at any time?
     %  Dm (?mol/kg) represents the total amount of ingested glucose
-    D_m = 10;
+    D_m = 20;
 
     % KBio is the carbohydrates bioavailability in the meal
-    K_bio = 50;
+    K_bio = 25;
 
     % Tasc , Tdes , and T (min) are the durations of ascend- ing and
     % descending rates and the total duration of gastric emptying,
     % respectively.
-    T_asc = 60;
-    T_des = 45;
+    T_asc = 25;
+    T_des = 60;
     T = T_asc + T_des;
     const = K_bio*D_m/(T - (T_des+T_asc)/2);
 

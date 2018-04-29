@@ -16,12 +16,12 @@ Tau_m = c(11);
 
 % Time span to solve over. In Minutes.
 t_start = 0;
-t_end = 180;
+t_end = 500;
 tspan = [t_start, t_end];
 
 % Initial values of the system.
 Q_i1_0 = 0;
-Q_i_0 = 5;
+Q_i_0 = 2;
 I_p_0 = K_i/Tau_i * Q_i_0;
 G_0 = 6;
 x_0 = 0;
@@ -48,7 +48,7 @@ function const = get_constants()
     % Ki = 106 /^w KMCRh (10-3 min /L) is a gain inversely proportional to 
     % the metabolic clearance rate KMCR (mL/kg/ min) and the patient 
     % weight w (kg)
-    K_i = 1;
+    K_i = 2;
     
     % V (mL/kg) is the glucose distribution volume
     V = 5000/80; % average person?
@@ -58,7 +58,7 @@ function const = get_constants()
     
     % p1 (1/min) describes glucose effectiveness (the ability of glucose to
     % promote its own disposal)
-    P1 = 0.5;
+    P1 = 0.05;
     
     % p2 (1/min) is a time constant characterizing the delay of the plasma
     % insulin effect on plasma glucose (deactivation rate of insulin effects) 
