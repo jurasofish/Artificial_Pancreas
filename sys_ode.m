@@ -26,13 +26,13 @@ function sys_deriv = sys_ode(t, sys, c)
     % Evaluate derivatives.
     d_Q_i1 = -1*Q_i1/Tau_i + U_i;
     d_Q_i = Q_i1/Tau_i - Q_i/Tau_i;
-    d_K_i = K_i/Tau_i * d_Q_i;
+    d_I_p = K_i/Tau_i * d_Q_i;
     
     sys_deriv = zeros(size(sys)); % Initialize memory.
     % populate sys_deriv
     sys_deriv(1) = d_Q_i1;
     sys_deriv(2) = d_Q_i;
-    sys_deriv(3) = d_K_i;
+    sys_deriv(3) = d_I_p;
 end
 
 function U_i = get_U_i(t)
