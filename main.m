@@ -36,6 +36,25 @@ function const = get_constants()
     % weight w (kg)
     K_i = 1;
     
+    % V (mL/kg) is the glucose distribution volume
+    V = 5000/80; % average person?
+    
+    % PEGP (mmol/L/min) describes the rate of endogenous production of glucose
+    PEGP = 1/30;
+    
+    % p1 (1/min) describes glucose effectiveness (the ability of glucose to
+    % promote its own disposal)
+    P1 = 0.5
+    
+    
+    % p2 (1/min) is a time constant characterizing the delay of the plasma
+    % insulin effect on plasma glucose (deactivation rate of insulin effects) 
+    P2 = 0.5;
+    
+    % p3 (1/min2 per munits/L) describes the activation rate of insulin
+    % effects.
+    P3 = 0.1;
+    
     const = [Tau_i K_i];
 end
 
