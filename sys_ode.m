@@ -10,6 +10,11 @@ function sys_deriv = sys_ode(t, sys, c)
     % Get constants out of constants vector.
     Tau_i = c(1);
     K_i = c(2);
+    V = c(3);
+    PEGP = c(4);
+    P1 = c(5);
+    P2 = c(6);
+    P3 = c(7);
     
     % Get constants defined by functions.
     U_i = get_U_i(t);

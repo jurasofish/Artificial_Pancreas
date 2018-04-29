@@ -4,6 +4,11 @@ c = get_constants();
 % Get constants out of constants vector.
 Tau_i = c(1);
 K_i = c(2);
+V = c(3);
+PEGP = c(4);
+P1 = c(5);
+P2 = c(6);
+P3 = c(7);
 
 % Time span to solve over. In Minutes.
 t_start = 0;
@@ -55,7 +60,7 @@ function const = get_constants()
     % effects.
     P3 = 0.1;
     
-    const = [Tau_i K_i];
+    const = [Tau_i K_i V PEGP P1 P2 P3];
 end
 
 function final_plot(t, sys)
