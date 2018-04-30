@@ -6,9 +6,9 @@ Tau_i = c(1);
 K_i = c(2);
 V = c(3);
 PEGP = c(4);
-P1 = c(5);
-P2 = c(6);
-P3 = c(7);
+p1 = c(5);
+p2 = c(6);
+p3 = c(7);
 G_0_const = c(8);
 S_i = c(9);
 K_sen = c(10);
@@ -58,15 +58,15 @@ function const = get_constants()
     
     % p1 (1/min) describes glucose effectiveness (the ability of glucose to
     % promote its own disposal)
-    P1 = 0.05;
+    p1 = 0.05;
     
     % p2 (1/min) is a time constant characterizing the delay of the plasma
     % insulin effect on plasma glucose (deactivation rate of insulin effects) 
-    P2 = 5;
+    p2 = 5;
     
     % p3 (1/min2 per munits/L) describes the activation rate of insulin
     % effects.
-    P3 = 0.1;
+    p3 = 0.1;
     
     % G0 (mmol/L) is an equi- librium point for glucose concentration.
     G_0_const = 6; % name to differentiate from function initial value.
@@ -74,6 +74,8 @@ function const = get_constants()
     % Si ~ G0 Ki P3 /P2 (mmol/L per units) is a positive insulin sen-
     % sitivity factor [the amount of glucose level drop (mmol/L) caused by
     % one unit of insulin]
+    P3 = 2; % Unknown
+    P2 = 3; % Unknown
     S_i = G_0_const * K_i * P3 / P2;
     
     % ksen (1/min) is the transfer-rate constant
@@ -84,7 +86,7 @@ function const = get_constants()
     Tau_m = 30;
     
     
-    const = [Tau_i K_i V PEGP P1 P2 P3 G_0_const S_i K_sen Tau_m];
+    const = [Tau_i K_i V PEGP p1 p2 p3 G_0_const S_i K_sen Tau_m];
 end
 
 function final_plot(t, sys)
