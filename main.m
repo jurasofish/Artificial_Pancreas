@@ -13,23 +13,25 @@ G_0_const = c(8);
 S_i = c(9);
 K_sen = c(10);
 Tau_m = c(11);
+K_bio = c(12);
 
 % Time span to solve over. In Minutes.
 t_start = 0;
-t_end = 360;
+t_end = 60*12;
 tspan = [t_start, t_end];
 
 % Initial values of the system.
 Q_i1_0 = 0;
 Q_i_0 = 0;
 I_p_0 = K_i/Tau_i * Q_i_0;
-G_0 = 6;
+G_0 = 5.5;
 x_0 = 0;
-G_s_0 = 6;
-Q_m_0 = 13;
+G_s_0 = 5.5;
+Q_m1_0 = 0;
+Q_m_0 = 0;
 U_m_0 = 0;
 
-sys_0 = [Q_i1_0 Q_i_0 I_p_0 G_0 x_0 G_s_0 Q_m_0 U_m_0];
+sys_0 = [Q_i1_0 Q_i_0 I_p_0 G_0 x_0 G_s_0 Q_m1_0 Q_m_0 U_m_0];
 
 % options for the ode solver
 options = odeset('RelTol',1e-7,'Stats','on','OutputFcn',@odeplot);
@@ -69,15 +71,15 @@ function const = get_constants()
     p3 = 0.1;
     
     % G0 (mmol/L) is an equi- librium point for glucose concentration.
-    G_0_const = 6; % name to differentiate from function initial value.
+    G_0_const = 100; % name to differentiate from function initial value.
     
     % Si ~ G0 Ki P3 /P2 (mmol/L per units) is a positive insulin sen-
     % sitivity factor [the amount of glucose level drop (mmol/L) caused by
     % one unit of insulin]
-    P3 = 2; % Unknown
-    P2 = 3; % Unknown
-    % S_i = G_0_const * K_i * P3 / P2;
-    S_i = 1800/40; % guess
+    S_i = 1800/30; % mg/dL/U
+    S_i = S_i / 1000 * 10; % g/L/U
+    S_i = S_i / 180; % mol/L/U
+    S_i = S_i * 1000; % mmol/L/U
     
     % ksen (1/min) is the transfer-rate constant
     K_sen = 0.066;
@@ -86,8 +88,10 @@ function const = get_constants()
     % in the blood circulation from the gut.
     Tau_m = 19;
     
+    % KBio is the carbohydrates bioavailability in the meal
+    K_bio = 0.8;
     
-    const = [Tau_i K_i V PEGP p1 p2 p3 G_0_const S_i K_sen Tau_m];
+    const = [Tau_i K_i V PEGP p1 p2 p3 G_0_const S_i K_sen Tau_m K_bio];
 end
 
 function final_plot(t, sys)
