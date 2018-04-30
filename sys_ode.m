@@ -60,7 +60,7 @@ end
 function U_i = get_U_i(t)
 % Ui(t) (unit/min) is the external insulin infusion rate
     if(t >= 60 && t < 70)
-        U_i = 10;
+        U_i = 0.2;
     else
         U_i = 0;
     end

@@ -16,18 +16,18 @@ Tau_m = c(11);
 
 % Time span to solve over. In Minutes.
 t_start = 0;
-t_end = 500;
+t_end = 360;
 tspan = [t_start, t_end];
 
 % Initial values of the system.
 Q_i1_0 = 0;
-Q_i_0 = 2;
+Q_i_0 = 0;
 I_p_0 = K_i/Tau_i * Q_i_0;
 G_0 = 6;
 x_0 = 0;
 G_s_0 = 6;
 Q_m_0 = 13;
-U_m_0 = 0.1;
+U_m_0 = 0;
 
 sys_0 = [Q_i1_0 Q_i_0 I_p_0 G_0 x_0 G_s_0 Q_m_0 U_m_0];
 
@@ -43,7 +43,7 @@ final_plot(t, sys)
 function const = get_constants()
     
     % Time to peak of plasma insulin after bolus.
-    Tau_i = 60;
+    Tau_i = 51;
     
     % Ki = 106 /^w KMCRh (10-3 min /L) is a gain inversely proportional to 
     % the metabolic clearance rate KMCR (mL/kg/ min) and the patient 
@@ -51,14 +51,14 @@ function const = get_constants()
     K_i = 2;
     
     % V (mL/kg) is the glucose distribution volume
-    V = 5000/80; % average person?
+    V = 160; % average person?
     
     % PEGP (mmol/L/min) describes the rate of endogenous production of glucose
-    PEGP = 1/30;
+    PEGP = 0.0161;
     
     % p1 (1/min) describes glucose effectiveness (the ability of glucose to
     % promote its own disposal)
-    p1 = 0.05;
+    p1 = 0.001;
     
     % p2 (1/min) is a time constant characterizing the delay of the plasma
     % insulin effect on plasma glucose (deactivation rate of insulin effects) 
@@ -76,14 +76,15 @@ function const = get_constants()
     % one unit of insulin]
     P3 = 2; % Unknown
     P2 = 3; % Unknown
-    S_i = G_0_const * K_i * P3 / P2;
+    % S_i = G_0_const * K_i * P3 / P2;
+    S_i = 1800/40; % guess
     
     % ksen (1/min) is the transfer-rate constant
-    K_sen = 0.2;
+    K_sen = 0.066;
     
     % xm (min) is a time constant characterizing the appearance of glucose
     % in the blood circulation from the gut.
-    Tau_m = 30;
+    Tau_m = 19;
     
     
     const = [Tau_i K_i V PEGP p1 p2 p3 G_0_const S_i K_sen Tau_m];
