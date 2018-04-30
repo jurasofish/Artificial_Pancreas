@@ -70,7 +70,8 @@ end
 function G_emp = get_G_emp(t)
     % gastric emptying.
     % does this need to be adjusted for a meal to start at any time?
-    %  Dm (?mol/kg) represents the total amount of ingested glucose
+    
+    % Dm (?mol/kg) represents the total amount of ingested glucose
     D_m = 20;
 
     % KBio is the carbohydrates bioavailability in the meal
