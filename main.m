@@ -34,7 +34,7 @@ U_m_0 = 0;
 sys_0 = [Q_i1_0 Q_i_0 I_p_0 G_0 x_0 G_s_0 Q_m1_0 Q_m_0 U_m_0];
 
 % options for the ode solver
-options = odeset('RelTol',1e-7,'Stats','on','OutputFcn',@odeplot);
+options = odeset('RelTol',1e-7);
 
 % solve
 [t,sys] = ode45(@(t,sys) sys_ode(t,sys,c), tspan, sys_0, options);
