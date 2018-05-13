@@ -1,4 +1,4 @@
-function sys_deriv = sys_ode(t, sys, c)
+function sys_deriv = sys_ode(t, sys, c, pid_insul)
     % t is the current time.
     % sys is a vector containing the values of the of the
     % functions in the system.
@@ -22,7 +22,7 @@ function sys_deriv = sys_ode(t, sys, c)
     K_bio = c(12);
     
     % Get constants defined by functions.
-    U_i = get_U_i(t);
+    U_i = get_U_i(t) + pid_insul;
     D_m = get_D_m(t);
 
     % Get values of functions from sys vector.

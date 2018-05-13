@@ -57,6 +57,16 @@ dt = 1e-0;
 % just to make sure that it still aligns with sys.
 sys = sys_0; 
 t = tspan(1);
+
+setpoint = 7;
+Kp = -0.0023;
+Td = 0.0235;
+Ti = 273; 
+Ki = Kp/Ti; %0.002;
+Kd = Kp/Td; % 0.03;
+
+previous_error = 0;
+integral = 0;
 for tt = tspan(1):dt:tspan(2)
     
     tt % print to see progress.
@@ -64,13 +74,19 @@ for tt = tspan(1):dt:tspan(2)
     sys_old = sys; % So the new ODE outputs can be appended. 
     t_old = t; % So the new time values can be appended. 
     
-    % Do the magic. 
-    [t,sys] = ode45(@(t,sys) sys_ode(t,sys,c), [tt, tt+dt], sys(end, :), options);
+    % Calculate PID stuff. Thanks wikipedia for the pseudocode.
+    error = setpoint - sys(end,6);
+    derivative = (error - previous_error) / dt;
+    integral = integral + error * dt;
     
-    % UMMMMMMM APPLY PID SAMPLING/INPUTS HERE?
-    % e = setpoint - actual_glucose
-    % de = ummmmmmm
-    % integral_e = hmmmmmm
+    % Insulin to administer -- output of PID.
+    pid_insul = Kp * error + Ki * integral + Kd * derivative;
+    
+    % For next loop iteration.
+    previous_error = error;
+    
+    % Do the magic. 
+    [t,sys] = ode45(@(t,sys) sys_ode(t,sys,c, pid_insul), [tt, tt+dt], sys(end, :), options);
     
     % Vertically concatenate fresh data (from end of period [t, t+dt] to the old
     % data. After all loops, t and sys will contain the data from all loops
