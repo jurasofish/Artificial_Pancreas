@@ -36,8 +36,51 @@ sys_0 = [Q_i1_0 Q_i_0 I_p_0 G_0 x_0 G_s_0 Q_m1_0 Q_m_0 U_m_0];
 % options for the ode solver
 options = odeset('RelTol',1e-7);
 
-% solve
-[t,sys] = ode45(@(t,sys) sys_ode(t,sys,c), tspan, sys_0, options);
+% The ODE solver will be run in a loop and solve over the period
+% t+dt until it has solved over all of tspan.
+%
+% After every loop, that is, after every dt, the PID controls will be
+% applied.
+%
+% The initial conditions at each time period are the final output of 
+% the previous solution from the ODE. 
+% e.g. The initial conditions when solving over [10, 10+dt] are the
+% last row of sys that comes from solving over [10-dt, 10]
+
+% dt is minutes of resolution between runs of the ODE solver.
+% The PID controls are applied every dt minutes.
+% O(n) time with dt, I think.
+dt = 1e-1;
+
+% Initialize sys such that sys(end, :) are the initial conditions
+% for the next iteration of the loop. t needs a similar thing done,
+% just to make sure that it still aligns with sys.
+sys = sys_0; 
+t = tspan(1);
+for tt = tspan(1):dt:tspan(2)
+    
+    tt % print to see progress.
+    
+    sys_old = sys; % So the new ODE outputs can be appended. 
+    t_old = t; % So the new time values can be appended. 
+    
+    % Do the magic. 
+    [t,sys] = ode45(@(t,sys) sys_ode(t,sys,c), [tt, tt+dt], sys(end, :), options);
+    
+    % UMMMMMMM APPLY PID SAMPLING/INPUTS HERE?
+    % e = setpoint - actual_glucose
+    % de = ummmmmmm
+    % integral_e = hmmmmmm
+    
+    % Vertically concatenate fresh data (from period [t, t+dt] to the old
+    % data. After all loops, t and sys will contain the data from all loops
+    % and can simply be used as though the ODE was solved all at once.
+    % The first row/value is skipped due to overlap between the previous
+    % and current timespans.
+    sys = [sys_old; sys(2:end, :)]; 
+    t = [t_old; t(2:end)];
+    
+end
 
 final_plot(t, sys)
 
