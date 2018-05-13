@@ -50,7 +50,7 @@ options = odeset('RelTol',1e-7);
 % dt is minutes of resolution between runs of the ODE solver.
 % The PID controls are applied every dt minutes.
 % O(n) time with dt, I think.
-dt = 1e-1;
+dt = 1e-0;
 
 % Initialize sys such that sys(end, :) are the initial conditions
 % for the next iteration of the loop. t needs a similar thing done,
@@ -72,13 +72,12 @@ for tt = tspan(1):dt:tspan(2)
     % de = ummmmmmm
     % integral_e = hmmmmmm
     
-    % Vertically concatenate fresh data (from period [t, t+dt] to the old
+    % Vertically concatenate fresh data (from end of period [t, t+dt] to the old
     % data. After all loops, t and sys will contain the data from all loops
     % and can simply be used as though the ODE was solved all at once.
-    % The first row/value is skipped due to overlap between the previous
-    % and current timespans.
-    sys = [sys_old; sys(2:end, :)]; 
-    t = [t_old; t(2:end)];
+    % ONLY the value from the end of the period [t, t+dt] is recorded.
+    sys = [sys_old; sys(end, :)]; 
+    t = [t_old; t(end)];
     
 end
 
