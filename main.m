@@ -21,8 +21,8 @@ t_end = 60*12;
 tspan = [t_start, t_end];
 
 % Initial values of the system.
-Q_i1_0 = 0;
-Q_i_0 = 0;
+Q_i1_0 = 0.01;
+Q_i_0 = 0.01;
 I_p_0 = K_i/Tau_i * Q_i_0;
 G_0 = 5.5;
 x_0 = 0;
