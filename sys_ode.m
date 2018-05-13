@@ -63,7 +63,7 @@ end
 
 function U_i = get_U_i(t)
 % Ui(t) (unit/min) is the external insulin infusion rate
-    if(t >= 60 && t < 70)
+    if(t >= 1 && t < 10)
         U_i = 0.75;
     else
         U_i = 0;
@@ -81,7 +81,7 @@ function D_m = get_D_m(t)
     
     % w (kg) is the patient weight
     w = 80;
-    if(t >= 60 && t < 70)
+    if(t >= 1 && t < 10)
         D_m = 1e6 * Q_cho/(w*M_cho)/10;
         
     else
