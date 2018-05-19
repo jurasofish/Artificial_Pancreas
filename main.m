@@ -82,6 +82,11 @@ for tt = tspan(1):dt:tspan(2)
     % Insulin to administer -- output of PID.
     pid_insul = Kp * error + Ki * integral + Kd * derivative;
     
+    % Can't administer negative insulin.
+    if(pid_insul < 0)
+        pid_insul = 0;
+    end
+    
     % For next loop iteration.
     previous_error = error;
     
