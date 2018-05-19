@@ -17,7 +17,7 @@ K_bio = c(12);
 
 % Time span to solve over. In Minutes.
 t_start = 0;
-t_end = 60*48;
+t_end = 60*200;
 tspan = [t_start, t_end];
 
 % Initial values of the system.
@@ -50,7 +50,7 @@ options = odeset('RelTol',1e-7);
 % dt is minutes of resolution between runs of the ODE solver.
 % The PID controls are applied every dt minutes.
 % O(n) time with dt, I think.
-dt = 1e-0;
+dt = 10e-0;
 
 % Initialize sys such that sys(end, :) are the initial conditions
 % for the next iteration of the loop. t needs a similar thing done,
@@ -59,9 +59,9 @@ sys = sys_0;
 t = tspan(1);
 
 setpoint = 7;
-Kp = -0.0023;
-Td = 0.0235;
-Ti = 273; 
+Kp = -0.00023;
+Td = 0.00057;
+Ti = 273;
 Ki = Kp/Ti; %0.002;
 Kd = Kp/Td; % 0.03;
 

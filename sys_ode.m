@@ -64,7 +64,7 @@ end
 function U_i = get_U_i(t)
 % Ui(t) (unit/min) is the external insulin infusion rate
     if(t >= 1 && t < 10)
-        U_i = 0.75;
+        U_i = 0.0;
     else
         U_i = 0;
     end
@@ -74,14 +74,14 @@ function D_m = get_D_m(t)
     % Dm (t) (?mol/kg/min) is the rate of glucose ingestion
     
     % QCHO (g) is the quantity of carbohydrates ingested
-    Q_cho = 60;
+    Q_cho = 100;
     
     % MCHO = 180.156 (g/mol) is the molar mass of glucose
     M_cho = 180.156;
     
     % w (kg) is the patient weight
     w = 80;
-    if(t >= 1 && t < 10)
+    if(t >= 1000 && t < 1010)
         D_m = 1e6 * Q_cho/(w*M_cho)/10;
         
     else
