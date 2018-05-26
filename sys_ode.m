@@ -83,7 +83,10 @@ function D_m = get_D_m(t)
     w = 80;
     if(t >= 1000 && t < 1010)
         D_m = 1e6 * Q_cho/(w*M_cho)/10;
-        
+    elseif(t >= 2000 && t < 2010)
+        D_m = 1e6 * 50/(w*M_cho)/10;
+    elseif(t >= 3000 && t < 3010)
+        D_m = 1e6 * 10/(w*M_cho)/10;
     else
         D_m = 0;
     end

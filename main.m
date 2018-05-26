@@ -17,16 +17,16 @@ K_bio = c(12);
 
 % Time span to solve over. In Minutes.
 t_start = 0;
-t_end = 60*200;
+t_end = 60*350;
 tspan = [t_start, t_end];
 
 % Initial values of the system.
 Q_i1_0 = 0.01;
 Q_i_0 = 0.01;
 I_p_0 = K_i/Tau_i * Q_i_0;
-G_0 = 5.5;
+G_0 = 7;
 x_0 = 0;
-G_s_0 = 5.5;
+G_s_0 = 7;
 Q_m1_0 = 0;
 Q_m_0 = 0;
 U_m_0 = 0;
@@ -60,8 +60,8 @@ t = tspan(1);
 
 setpoint = 7;
 Kp = -0.00023;
-Td = 0.00057;
-Ti = 273;
+Td = 0.000635;
+Ti = 2500;
 Ki = Kp/Ti; %0.002;
 Kd = Kp/Td; % 0.03;
 
