@@ -110,7 +110,7 @@ for tt = tspan(1):dt:tspan(2)
     error
     Ki
     integral
-    kd
+    Kd
     derivative
     pid_insul
     
