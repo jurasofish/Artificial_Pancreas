@@ -66,7 +66,7 @@ Ki = Kp/Ti; %0.002;
 Kd = Kp/Td; % 0.03;
 
 previous_error = 0;
-integral = 0;
+integral = -1.7285e+04;
 for tt = tspan(1):dt:tspan(2)
     
     tt/tspan(2)*100 % print to see progress.
