@@ -67,8 +67,6 @@ previous_error = 0;
 integral = 2.5e5; % Initial value found by running system and taking value.
 for tt = tspan(1):dt:tspan(2)
     
-    tt/tspan(2)*100 % print to see progress.
-    
     sys_old = sys; % So the new ODE outputs can be appended. 
     t_old = t; % So the new time values can be appended. 
     
@@ -103,6 +101,7 @@ for tt = tspan(1):dt:tspan(2)
     end
     
     % print debug info.
+    tt/tspan(2)*100 % percentage progress.
     tt
     Kp
     error
