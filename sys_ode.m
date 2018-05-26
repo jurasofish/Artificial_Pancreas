@@ -63,8 +63,8 @@ end
 
 function U_i = get_U_i(t)
 % Ui(t) (unit/min) is the external insulin infusion rate
-    if(t >= 1 && t < 10)
-        U_i = 0.0;
+    if(t >= 10*24*60 + 7*60 && t < 10*24*60 + 7*60 + 10)
+        U_i = 0;
     else
         U_i = 0;
     end
@@ -73,23 +73,38 @@ end
 function D_m = get_D_m(t)
     % Dm (t) (?mol/kg/min) is the rate of glucose ingestion
     
-    % QCHO (g) is the quantity of carbohydrates ingested
-    Q_cho = 100;
-    
     % MCHO = 180.156 (g/mol) is the molar mass of glucose
     M_cho = 180.156;
     
     % w (kg) is the patient weight
     w = 80;
-    if(t >= 1000 && t < 1010)
-        D_m = 1e6 * Q_cho/(w*M_cho)/10;
-    elseif(t >= 2000 && t < 2010)
-        D_m = 1e6 * 50/(w*M_cho)/10;
-    elseif(t >= 3000 && t < 3010)
-        D_m = 1e6 * 10/(w*M_cho)/10;
-    else
-        D_m = 0;
+    
+    D_m = 0; % default value
+    
+    for day = 0:10
+        if(t >= day*24*60 + 7*60 && t < day*24*60 + 7*60 + 10)
+            % Breakfast
+            carbs = 40;
+            D_m = 1e6 * carbs/(w*M_cho)/10;
+
+        elseif(t >= day*24*60 + 10*60 && t < day*24*60 + 10*60 + 5)
+            % Morning snack
+            carbs = 10;
+            D_m = 1e6 * carbs/(w*M_cho)/5;
+
+        elseif(t >= day*24*60 + 13*60 && t < day*24*60 + 13*60 + 60)
+            % Lunch
+            carbs = 20;
+            D_m = 1e6 * carbs/(w*M_cho)/60;
+
+        elseif(t >= day*24*60 + 19*60 && t < day*24*60 + 19*60 + 60)
+            % dinner
+            carbs = 80;
+            D_m = 1e6 * carbs/(w*M_cho)/60;
+            
+        end
     end
+    % D_m = 0;
 end
 
 

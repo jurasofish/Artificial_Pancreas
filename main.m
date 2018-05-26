@@ -17,16 +17,16 @@ K_bio = c(12);
 
 % Time span to solve over. In Minutes.
 t_start = 0;
-t_end = 60*350;
+t_end = 60*24*15;
 tspan = [t_start, t_end];
 
 % Initial values of the system.
-Q_i1_0 = 0.01;
-Q_i_0 = 0.01;
+Q_i1_0 = 0.0865;
+Q_i_0 = 0.0865;
 I_p_0 = K_i/Tau_i * Q_i_0;
-G_0 = 7;
+G_0 = 5.5;
 x_0 = 0;
-G_s_0 = 7;
+G_s_0 = 5.5;
 Q_m1_0 = 0;
 Q_m_0 = 0;
 U_m_0 = 0;
@@ -58,15 +58,15 @@ dt = 10e-0;
 sys = sys_0; 
 t = tspan(1);
 
-setpoint = 7;
+setpoint = 5.5;
 Kp = -0.00023;
 Td = 0.000635;
-Ti = 2500;
+Ti = 25000;
 Ki = Kp/Ti; %0.002;
 Kd = Kp/Td; % 0.03;
 
 previous_error = 0;
-integral = -1.7285e+04;
+integral = -4e5;
 for tt = tspan(1):dt:tspan(2)
     
     tt/tspan(2)*100 % print to see progress.
@@ -78,7 +78,7 @@ for tt = tspan(1):dt:tspan(2)
     error = setpoint - sys(end,6);
     derivative = (error - previous_error) / dt;
     
-    int_thresh = 1.5;
+    int_thresh = 150000;
     if(error > int_thresh)
         integral = integral + int_thresh * dt;
     elseif(error < -1 * int_thresh )
