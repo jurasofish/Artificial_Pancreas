@@ -64,7 +64,7 @@ Ki = 0.6e-7;
 Kd = 0.35;
 
 previous_error = 0;
-integral = -4e5;
+integral = 2.5e5; % Initial value found by running system and taking value.
 for tt = tspan(1):dt:tspan(2)
     
     tt/tspan(2)*100 % print to see progress.
