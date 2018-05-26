@@ -63,8 +63,8 @@ end
 
 function U_i = get_U_i(t)
 % Ui(t) (unit/min) is the external insulin infusion rate
-    if(t >= 10*24*60 + 7*60 && t < 10*24*60 + 7*60 + 10)
-        U_i = 0;
+    if(t >= 5600 && t < 5600 + 10)
+        U_i = 0.5;
     else
         U_i = 0;
     end
@@ -81,25 +81,35 @@ function D_m = get_D_m(t)
     
     D_m = 0; % default value
     
-    for day = 0:10
+    % [breakfast, morning tea, lunch, dinner]
+    meals = [20  10  50  3;
+             200 5   60  10;
+             20  10  50  3;
+             5   400 300 10;
+             0   0   0   0;
+             500 20  5   15;
+             5   10  2   10
+             ];
+    
+    for day = 0:6
         if(t >= day*24*60 + 7*60 && t < day*24*60 + 7*60 + 10)
             % Breakfast
-            carbs = 40;
+            carbs = meals(day+1, 1);
             D_m = 1e6 * carbs/(w*M_cho)/10;
 
         elseif(t >= day*24*60 + 10*60 && t < day*24*60 + 10*60 + 5)
             % Morning snack
-            carbs = 10;
+            carbs = meals(day+1, 2);
             D_m = 1e6 * carbs/(w*M_cho)/5;
 
         elseif(t >= day*24*60 + 13*60 && t < day*24*60 + 13*60 + 60)
             % Lunch
-            carbs = 20;
+            carbs = meals(day+1, 3);
             D_m = 1e6 * carbs/(w*M_cho)/60;
 
         elseif(t >= day*24*60 + 19*60 && t < day*24*60 + 19*60 + 60)
             % dinner
-            carbs = 80;
+            carbs = meals(day+1, 4);
             D_m = 1e6 * carbs/(w*M_cho)/60;
             
         end
