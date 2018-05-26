@@ -77,9 +77,19 @@ for tt = tspan(1):dt:tspan(2)
     % Calculate PID stuff. Thanks wikipedia for the pseudocode.
     error = setpoint - sys(end,6);
     derivative = (error - previous_error) / dt;
-    integral = integral + error * dt;
+    
+    int_thresh = 1.5;
+    if(error > int_thresh)
+        integral = integral + int_thresh * dt;
+    elseif(error < -1 * int_thresh )
+        integral = integral - int_thresh * dt;
+    else
+        integral = integral + error * dt;
+    end
     
     % Insulin to administer -- output of PID.
+    integral
+    % error
     pid_insul = Kp * error + Ki * integral + Kd * derivative;
     
     % Can't administer negative insulin.
