@@ -160,30 +160,30 @@ end
 function final_plot(t, sys)
 % Plot the solution
 
-figure('position', [0, 0, 600, 300]) % new figure Window
-plot(t,sys(:,1),'-o',t,sys(:,2),'-.')
-legend('First Compartment','Second Compartment (Plasma)','Location','northeast')
-title('Insulin in Two Compartments')
-xlabel('Time (minutes)')
-ylabel('Insulin in Compartment (units)')
-
-figure('position', [0, 0, 600, 300]) % new figure Window
-plot(t,sys(:,3),'-o')
-title('Insulin in Plasma')
-xlabel('Time (minutes)')
-ylabel('Insulin in Plasma (munits/L)')
-
-figure('position', [0, 0, 600, 300]) % new figure Window
-plot(t,sys(:,4),'-o')
-title('Glucose in Plasma')
-xlabel('Time (minutes)')
-ylabel('Glucose in Plasma (mmol/L)')
-
-figure('position', [0, 0, 600, 300]) % new figure Window
-plot(t,sys(:,8),'-o')
-title('Glucose Gut Absorption Rate')
-xlabel('Time (minutes)')
-ylabel('Glucose Gut Absorption Rate (?mol/kg/min)')
+% figure('position', [0, 0, 600, 300]) % new figure Window
+% plot(t,sys(:,1),'-o',t,sys(:,2),'-.')
+% legend('First Compartment','Second Compartment (Plasma)','Location','northeast')
+% title('Insulin in Two Compartments')
+% xlabel('Time (minutes)')
+% ylabel('Insulin in Compartment (units)')
+% 
+% figure('position', [0, 0, 600, 300]) % new figure Window
+% plot(t,sys(:,3),'-o')
+% title('Insulin in Plasma')
+% xlabel('Time (minutes)')
+% ylabel('Insulin in Plasma (munits/L)')
+% 
+% figure('position', [0, 0, 600, 300]) % new figure Window
+% plot(t,sys(:,4),'-o')
+% title('Glucose in Plasma')
+% xlabel('Time (minutes)')
+% ylabel('Glucose in Plasma (mmol/L)')
+% 
+% figure('position', [0, 0, 600, 300]) % new figure Window
+% plot(t,sys(:,8),'-o')
+% title('Glucose Gut Absorption Rate')
+% xlabel('Time (minutes)')
+% ylabel('Glucose Gut Absorption Rate (?mol/kg/min)')
 
 figure('position', [0, 0, 600, 300]) % new figure Window
 plot(t,sys(:,6),'-o')
