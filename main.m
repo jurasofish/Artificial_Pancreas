@@ -60,7 +60,7 @@ t = tspan(1);
 
 setpoint = 5.5;
 Kp = 7e-8;
-Ki = 0.75e-7;
+Ki = 0.6e-7;
 Kd = 0.35;
 
 previous_error = 0;
