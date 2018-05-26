@@ -69,7 +69,7 @@ previous_error = 0;
 integral = 0;
 for tt = tspan(1):dt:tspan(2)
     
-    tt % print to see progress.
+    tt/tspan(2)*100 % print to see progress.
     
     sys_old = sys; % So the new ODE outputs can be appended. 
     t_old = t; % So the new time values can be appended. 
