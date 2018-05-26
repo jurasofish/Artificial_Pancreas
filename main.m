@@ -180,17 +180,15 @@ xlabel('Time (minutes)')
 ylabel('Glucose in Plasma (mmol/L)')
 
 figure('position', [0, 0, 600, 300]) % new figure Window
-plot(t,sys(:,6),'-o')
-title('Interstial Glucose')
-xlabel('Time (minutes)')
-ylabel('Interstial Glucose (mmol/L)')
-
-figure('position', [0, 0, 600, 300]) % new figure Window
 plot(t,sys(:,8),'-o')
 title('Glucose Gut Absorption Rate')
 xlabel('Time (minutes)')
 ylabel('Glucose Gut Absorption Rate (?mol/kg/min)')
 
-
+figure('position', [0, 0, 600, 300]) % new figure Window
+plot(t,sys(:,6),'-o')
+title('Interstial Glucose')
+xlabel('Time (minutes)')
+ylabel('Interstial Glucose (mmol/L)')
 
 end
