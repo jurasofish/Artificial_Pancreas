@@ -60,7 +60,7 @@ t = tspan(1);
 
 setpoint = 5.5;
 Kp = 7e-8;
-Ki = 0.6e-7;
+Ki = 0.75e-7;
 Kd = 0.35;
 
 previous_error = 0;
@@ -100,7 +100,7 @@ for tt = tspan(1):dt:tspan(2)
     
     % If glucose is going down somewhat steeply,
     % and it is above, but close to, the setpoint.
-    elseif(derivative < -0.001 && error > 0 && error < 0.4 * setpoint)
+    elseif(derivative < -0.001 && error > 0 && error < 0.75 * setpoint)
         pid_insul = 0;
     end
     

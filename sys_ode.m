@@ -83,7 +83,7 @@ function D_m = get_D_m(t)
     
     % [breakfast, morning tea, lunch, dinner]
     meals = [20  10  50  3;
-             200 5   60  10;
+             200 5   60  600;
              20  10  50  3;
              5   400 300 10;
              0   0   0   0;
@@ -107,10 +107,10 @@ function D_m = get_D_m(t)
             carbs = meals(day+1, 3);
             D_m = 1e6 * carbs/(w*M_cho)/60;
 
-        elseif(t >= day*24*60 + 19*60 && t < day*24*60 + 19*60 + 60)
+        elseif(t >= day*24*60 + 19*60 && t < day*24*60 + 19*60 + 600)
             % dinner
             carbs = meals(day+1, 4);
-            D_m = 1e6 * carbs/(w*M_cho)/60;
+            D_m = 1e6 * carbs/(w*M_cho)/600;
             
         end
     end
