@@ -88,6 +88,32 @@ for tt = tspan(1):dt:tspan(2)
         pid_insul = 0;
     end
     
+    % Below are heuristics which augment the PID.
+    
+    % never administer insulin when below setpoint. begone, integral!
+    % You might think that it would be appropriate to administer insulin if
+    % below the setpoint BUT glucose is rising. This is not an
+    % unreasonable idea, but in practice it doesn't work becuase of the
+    % oscillations that occur near the setpoint (I think).
+    if(error < 0)
+        pid_insul = 0;
+    
+    % If glucose is going down somewhat steeply,
+    % and it is above, but close to, the setpoint.
+    elseif(derivative < -0.001 && error > 0 && error < 0.4 * setpoint)
+        pid_insul = 0;
+    end
+    
+    % print debug info.
+    tt
+    Kp
+    error
+    Ki
+    integral
+    kd
+    derivative
+    pid_insul
+    
     % For next loop iteration.
     previous_error = error;
     
