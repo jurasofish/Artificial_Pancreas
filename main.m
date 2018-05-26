@@ -73,7 +73,8 @@ for tt = tspan(1):dt:tspan(2)
     t_old = t; % So the new time values can be appended. 
     
     % Calculate PID stuff. Thanks wikipedia for the pseudocode.
-    error = setpoint - sys(end,6);
+    % error may be negative compared to some texts.
+    error = sys(end,6) - setpoint;
     derivative = (error - previous_error) / dt;
     
     int_thresh = 150000;
