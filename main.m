@@ -59,11 +59,9 @@ sys = sys_0;
 t = tspan(1);
 
 setpoint = 5.5;
-Kp = -0.00023;
-Td = 0.000635;
-Ti = 25000;
-Ki = Kp/Ti; %0.002;
-Kd = Kp/Td; % 0.03;
+Kp = 7e-8;
+Ki = 0.6e-7;
+Kd = 0.35;
 
 previous_error = 0;
 integral = -4e5;
