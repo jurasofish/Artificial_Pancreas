@@ -217,11 +217,15 @@ figure('position', [0, 0, 600, 300]) % new figure Window
 xlabel('Time (minutes)')
 title('Interstial Glucose')
 yyaxis left
+ylim([0, inf])
+hold on
 plot(t,sys(:,6),'-.')
+plot(t, ones(size(t))*10, 'r-')
+plot(t, ones(size(t))*2, 'r-')
 ylabel('Interstial Glucose (mmol/L)')
 yyaxis right
 plot(t,pid_insul_hist,'-o')
-ylabel('PID Output')
+ylabel('PID Output - amount of insulin injected (unit/min)')
 
 
 end
