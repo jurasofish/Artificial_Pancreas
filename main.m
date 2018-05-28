@@ -58,6 +58,9 @@ dt = 10e-0;
 sys = sys_0; 
 t = tspan(1);
 
+% Store history of outputs of PID controller.
+pid_insul_hist = [0];
+
 setpoint = 5.5;
 Kp = 7e-8;
 Ki = 0.6e-7;
@@ -122,11 +125,12 @@ for tt = tspan(1):dt:tspan(2)
     % and can simply be used as though the ODE was solved all at once.
     % ONLY the value from the end of the period [t, t+dt] is recorded.
     sys = [sys_old; sys(end, :)]; 
+    pid_insul_hist = [pid_insul_hist; pid_insul];
     t = [t_old; t(end)];
     
 end
 
-final_plot(t, sys)
+final_plot(t, sys, pid_insul_hist)
 
 
 function const = get_constants()
@@ -181,7 +185,7 @@ function const = get_constants()
     const = [Tau_i K_i V PEGP p1 p2 p3 G_0_const S_i K_sen Tau_m K_bio];
 end
 
-function final_plot(t, sys)
+function final_plot(t, sys, pid_insul_hist)
 % Plot the solution
 
 % figure('position', [0, 0, 600, 300]) % new figure Window
@@ -210,9 +214,14 @@ function final_plot(t, sys)
 % ylabel('Glucose Gut Absorption Rate (?mol/kg/min)')
 
 figure('position', [0, 0, 600, 300]) % new figure Window
-plot(t,sys(:,6),'-o')
-title('Interstial Glucose')
 xlabel('Time (minutes)')
+title('Interstial Glucose')
+yyaxis left
+plot(t,sys(:,6),'-.')
 ylabel('Interstial Glucose (mmol/L)')
+yyaxis right
+plot(t,pid_insul_hist,'-o')
+ylabel('PID Output')
+
 
 end
