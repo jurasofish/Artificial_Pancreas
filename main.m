@@ -130,7 +130,7 @@ for tt = tspan(1):dt:tspan(2)
     
 end
 
-final_plot(t, sys, pid_insul_hist)
+final_plot(t, sys, pid_insul_hist, setpoint)
 
 
 function const = get_constants()
@@ -185,7 +185,7 @@ function const = get_constants()
     const = [Tau_i K_i V PEGP p1 p2 p3 G_0_const S_i K_sen Tau_m K_bio];
 end
 
-function final_plot(t, sys, pid_insul_hist)
+function final_plot(t, sys, pid_insul_hist, setpoint)
 % Plot the solution
 
 % figure('position', [0, 0, 600, 300]) % new figure Window
@@ -215,13 +215,14 @@ function final_plot(t, sys, pid_insul_hist)
 
 figure('position', [0, 0, 600, 300]) % new figure Window
 xlabel('Time (minutes)')
-title('Interstial Glucose')
+title('Interstial Glucose and Insulin Injection')
 yyaxis left
 ylim([0, inf])
 hold on
 plot(t,sys(:,6),'-.')
 plot(t, ones(size(t))*10, 'r-')
-plot(t, ones(size(t))*2, 'r-')
+plot(t, ones(size(t))*4, 'r-')
+plot(t, ones(size(t))*setpoint, 'g-')
 ylabel('Interstial Glucose (mmol/L)')
 yyaxis right
 plot(t,pid_insul_hist,'-o')
