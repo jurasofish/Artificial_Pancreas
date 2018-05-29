@@ -112,6 +112,7 @@ for tt = tspan(1):dt:tspan(2)
     integral
     Kd
     derivative
+    Ki * integral
     pid_insul
     
     % For next loop iteration.
