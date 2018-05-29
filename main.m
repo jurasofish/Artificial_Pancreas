@@ -17,7 +17,7 @@ K_bio = c(12);
 
 % Time span to solve over. In Minutes.
 t_start = 0;
-t_end = 60*24*15;
+t_end = 60*24*2;
 tspan = [t_start, t_end];
 
 % Initial values of the system.
